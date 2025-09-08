@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do App</title>
+  <style>
+    body { font-family: Arial; background: #f2f2f2; text-align: center; }
+    h1 { color: #333; }
+    .task { margin: 10px; padding: 10px; background: #fff; border-radius: 5px; display: flex; justify-content: space-between; }
+    button { background: red; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+    button:hover { background: darkred; }
+    input[type="text"] { padding: 10px; width: 250px; border-radius: 5px; border: 1px solid #ccc; }
+    input[type="submit"] { padding: 10px; border: none; background: green; color: white; border-radius: 5px; cursor: pointer; }
+    input[type="submit"]:hover { background: darkgreen; }
+  </style>
+</head>
+<body>
+  <h1>📝 To-Do App</h1>
+
+  <form method="POST">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="Add new task">
+    <input type="submit" value="Add Task">
+  </form>
+
+  <div>
+    {% for task in tasks %}
+      <div class="task">
+        <span>{{ task.title }}</span>
+        <a href="{% url 'delete_task' task.id %}">
+          <button>Delete</button>
+        </a>
+      </div>
+    {% empty %}
+      <p>No tasks yet! ✅</p>
+    {% endfor %}
+  </div>
+
+  <script>
+    // Simple JavaScript Alert
+    document.querySelector("form").addEventListener("submit", function(){
+        alert("Task Added Successfully!");
+    });
+  </script>
+</body>
+</html>
